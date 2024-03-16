@@ -6,6 +6,9 @@ penguins_df = palmerpenguins.load_penguins()
 
 ui.page_opts(title="Sarah's Penguin Data", fillable=True)
 with ui.layout_columns():
+    
+    with ui.sidebar(open="open", bg="#f8f8f8"):  
+        ui.h2("Sidebar")
 
     @render_plotly
     def plot1():
