@@ -31,6 +31,7 @@ with ui.sidebar(open="open"):
         "body_mass_g": "Body Mass",  
         },  
     )  
+        
         ui.hr()
         ui.a(
         "GitHub",
@@ -38,27 +39,49 @@ with ui.sidebar(open="open"):
          target="_blank",
          )
 
-with ui.layout_columns(col_widths=(10, 20)):
+with ui.layout_columns(col_widths=(4, 8)):
     with ui.card():
-        "Data Table"
-    ui.h2("Penguins Table")
+        "Penguins Table"
 
     @render.data_frame
     def render_penguins_table():
         return penguins_df
 
-            
-    with ui.card(): "Data_Grid"
-    ui.h2("Penguins Grid")
+with ui.layout_columns(col_widths=(4, 8)):           
+    with ui.card(full_screen=True): "Penguins Grid"
     @render.data_frame
     def penguins_data():
         return render.DataGrid(penguins_df, row_selection_mode="multiple")  
 
-    
+with ui.layout_columns(col_widths=(4, 8)):
+    with ui.card(full_screen=True): "Plotly Penguins Histogram"
     @render_plotly
     def plot1():
         return px.histogram(px.data.tips(), y="sex")
 
+with ui.layout_columns(col_widths=(4, 8)):
+    with ui.card(full_screen=True): "Seaborn Penguins Histogram"
+    @render.plot(alt="Seaborn Histogram", full_page="true")
+    def seaborn_histogram():
+        histplot = sns.histplot(data=penguins_df, x="bill_depth_mm", bins=input.seaborn_bin_count())
+        histplot.set_title("Palmer Penguins")
+        histplot.set_xlabel("Bill Depth")
+        histplot.set_ylabel("Count")
+        return histplot
+
+with ui.layout_columns(col_widths=(4, 8)):
+    with ui.card(full_screen=True): "Plotly Scatterplot"
+
     @render_plotly
-    def plot2():
-        return px.histogram(px.data.tips(), y="size")
+    def plotly_scatterplot():
+        return px.scatter(penguins_df,
+            x="bill_length_mm",
+            y="body_mass_g",
+            color="species",
+            title="Penguins Plot",
+            labels={
+                "bill_length_mm": "Bill Length (mm)",
+                "body_mass_g": "Body Mass (g)",
+            },
+            size_max=8, 
+        )
