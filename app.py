@@ -21,6 +21,22 @@ with ui.sidebar(open="open"):
         ui.input_numeric("plotly_bin_count", "Bin Count", 10, min=1, max=20)
         (ui.input_slider("seaborn_bin_count", "Seaborn Slider", 0, 50, 25),)
 
+        ui.input_checkbox_group(  
+        "checkbox_group",  
+        "Checkbox group",  
+        {  
+        "bill_depth_mm":"Bill Depth",  
+        "flipper_length_mm": "Flipper Length",  
+        "body_mass_g": "Body Mass",  
+        },  
+    )  
+        ui.hr()
+        ui.a(
+        "GitHub",
+         href="https://github.com/sapapesh/cintel-02-data",
+         target="_blank",
+         )
+
 with ui.layout_columns():
     
     @render_plotly
