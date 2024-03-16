@@ -8,6 +8,7 @@ import pandas as pd
 import seaborn as sns
 from shiny import reactive, render, req
 
+
 ui.page_opts(title="Sarah's Penguin Data", fillable=True)
     
 with ui.sidebar(open="open"):  
@@ -37,7 +38,22 @@ with ui.sidebar(open="open"):
          target="_blank",
          )
 
-with ui.layout_columns():
+with ui.layout_columns(col_widths=(10, 20)):
+    with ui.card():
+        "Data Table"
+    ui.h2("Penguins Table")
+
+    @render.data_frame
+    def render_penguins_table():
+        return penguins_df
+
+            
+    with ui.card(): "Data_Grid"
+    ui.h2("Penguins Grid")
+    @render.data_frame
+    def penguins_data():
+        return render.DataGrid(penguins_df, row_selection_mode="multiple")  
+
     
     @render_plotly
     def plot1():
