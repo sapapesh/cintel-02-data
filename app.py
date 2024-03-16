@@ -19,6 +19,7 @@ with ui.sidebar(open="open"):
         ["Adelie", "Gentoo", "Chinstrap"],
     )
         ui.input_numeric("plotly_bin_count", "Bin Count", 10, min=1, max=20)
+        (ui.input_slider("seaborn_bin_count", "Seaborn Slider", 0, 50, 25),)
 
 with ui.layout_columns():
     
