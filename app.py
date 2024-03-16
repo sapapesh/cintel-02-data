@@ -9,9 +9,8 @@ import seaborn as sns
 from shiny import reactive, render, req
 
 ui.page_opts(title="Sarah's Penguin Data", fillable=True)
-with ui.layout_columns():
     
-    with ui.sidebar(open="open", bg="#f8f8f8"):  
+with ui.sidebar(open="open"):  
         ui.h2("Sidebar")
         
         ui.input_selectize(  
@@ -19,7 +18,10 @@ with ui.layout_columns():
         "Select an option below:",  
         ["Adelie", "Gentoo", "Chinstrap"],
     )
+        ui.input_numeric("plotly_bin_count", "Bin Count", 10, min=1, max=20)
 
+with ui.layout_columns():
+    
     @render_plotly
     def plot1():
         return px.histogram(px.data.tips(), y="sex")
